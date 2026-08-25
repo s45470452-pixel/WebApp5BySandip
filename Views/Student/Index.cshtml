@@ -1,0 +1,62 @@
+﻿@model List<WebApp5BySandip.Models.Student>
+
+@{
+    ViewData["Title"] = "Student List";
+}
+
+<div class="container mt-4">
+
+    <h1>Student List</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">
+            Add New Student
+        </a>
+    </p>
+
+    @if (Model.Count == 0)
+    {
+        <p>No student records found.</p>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Age</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td>@student.Id</td>
+                        <td>@student.Name</td>
+                        <td>@student.Course</td>
+                        <td>@student.Age</td>
+
+                        <td>
+                            <a asp-action="Edit"
+                               asp-route-id="@student.Id"
+                               class="btn btn-warning">
+                                Edit
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@student.Id"
+                               class="btn btn-danger">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>
