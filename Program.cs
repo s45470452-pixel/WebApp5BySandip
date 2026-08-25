@@ -1,12 +1,14 @@
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
     Args = args,
     EnvironmentName = Environments.Production
 });
 
-// Disable configuration file reload/watchers for Render
+// Disable file watching/reloading for JSON configuration
 builder.Configuration.Sources
-    .OfType<Microsoft.Extensions.Configuration.Json.JsonConfigurationSource>()
+    .OfType<JsonConfigurationSource>()
     .ToList()
     .ForEach(source => source.ReloadOnChange = false);
 
@@ -22,7 +24,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
